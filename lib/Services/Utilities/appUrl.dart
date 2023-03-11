@@ -1,3 +1,4 @@
+// ignore: camel_case_types
 class appUrl {
   //this is our baseUrl
   static const String baseUrl = "https://disease.sh/v3/covid-19/";

@@ -65,7 +65,7 @@ class _detailedScreenState extends State<detailedScreen> {
                         value: widget.totalRecovered.toString(),
                       ),
                       ReusableRow(
-                        title: 'Death on ' + dateStr,
+                        title: 'Death on $dateStr',
                         value: widget.totalDeaths.toString() == "null"
                             ? "0"
                             : widget.totalDeaths

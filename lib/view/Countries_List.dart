@@ -11,7 +11,7 @@ class CountriesListScreen extends StatefulWidget {
 }
 
 class _CountriesListScreenState extends State<CountriesListScreen> {
-  TextEditingController SearchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     StatesServices statesServices = StatesServices();
@@ -29,15 +29,15 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                 onChanged: (value) {
                   setState(() {});
                 },
-                controller: SearchController,
+                controller: searchController,
                 decoration: InputDecoration(
                     hoverColor: Colors.black,
                     suffixIcon: IconButton(
-                      icon: SearchController.text.isEmpty
+                      icon: searchController.text.isEmpty
                           ? const Icon(Icons.search)
                           : const Icon(Icons.clear),
                       onPressed: () {
-                        SearchController.text = '';
+                        searchController.text = '';
                       },
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -84,7 +84,7 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         String name = snapshot.data![index]["country"];
-                        if (SearchController.text.isEmpty) {
+                        if (searchController.text.isEmpty) {
                           return Column(
                             children: [
                               InkWell(
@@ -138,7 +138,7 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                           );
                         } else if (name
                             .toLowerCase()
-                            .contains(SearchController.text.toLowerCase())) {
+                            .contains(searchController.text.toLowerCase())) {
                           return Column(
                             children: [
                               InkWell(
