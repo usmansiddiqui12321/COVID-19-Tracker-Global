@@ -174,8 +174,8 @@ class ReusealeRow extends StatelessWidget {
               Text(value),
             ],
           ),
-          SizedBox(height: 5),
-          Divider()
+          const SizedBox(height: 5),
+          const Divider()
         ],
       ),
     );
