@@ -11,6 +11,13 @@ class CountriesListScreen extends StatefulWidget {
 }
 
 class _CountriesListScreenState extends State<CountriesListScreen> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchController;
+  }
+
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -25,26 +32,29 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: TextFormField(
-                onChanged: (value) {
-                  setState(() {});
-                },
-                controller: searchController,
-                decoration: InputDecoration(
-                    hoverColor: Colors.black,
-                    suffixIcon: IconButton(
-                      icon: searchController.text.isEmpty
-                          ? const Icon(Icons.search)
-                          : const Icon(Icons.clear),
-                      onPressed: () {
-                        searchController.text = '';
-                      },
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                    hintText: "Search with Country Name",
-                    border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(50.0))),
+              child: SingleChildScrollView(
+                child: TextFormField(
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  controller: searchController,
+                  decoration: InputDecoration(
+                      hoverColor: Colors.black,
+                      suffixIcon: IconButton(
+                        icon: searchController.text.isEmpty
+                            ? const Icon(Icons.search)
+                            : const Icon(Icons.clear),
+                        onPressed: () {
+                          searchController.text = '';
+                        },
+                      ),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 20),
+                      hintText: "Search with Country Name",
+                      border: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(50.0))),
+                ),
               ),
             ),
             Expanded(
