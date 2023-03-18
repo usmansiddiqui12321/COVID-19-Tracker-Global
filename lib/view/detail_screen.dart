@@ -101,8 +101,8 @@ class _detailedScreenState extends State<detailedScreen> {
                     ),
                     child: ListView.separated(
                       shrinkWrap: true,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 8),
                       itemBuilder: (context, index) {
                         return ReusableRow(
                           title: index == 0
