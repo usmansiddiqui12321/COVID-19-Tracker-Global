@@ -115,41 +115,65 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                               ),
                             );
                           },
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 16),
-                            leading: ClipOval(
-                              child: FadeInImage(
-                                fadeInDuration: const Duration(milliseconds: 250),
-                                placeholder:
-                                    const AssetImage('images/placeholder.jpg'),
-                                image: NetworkImage(flagUrl),
-                                fit: BoxFit.cover,
-                                width: 56.0,
-                                height: 56.0,
-                                imageErrorBuilder:
-                                    (context, error, stackTrace) {
-                                  return const CircleAvatar(
-                                    radius: 28,
-                                    child: Icon(Icons.error),
-                                  );
-                                },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 16),
+                              child: Row(
+                                children: [
+                                  ClipOval(
+                                    child: FadeInImage(
+                                      fadeInDuration:
+                                          const Duration(milliseconds: 250),
+                                      placeholder: const AssetImage(
+                                          'images/placeholder.jpg'),
+                                      image: NetworkImage(flagUrl),
+                                      fit: BoxFit.cover,
+                                      width: 56.0,
+                                      height: 56.0,
+                                      imageErrorBuilder:
+                                          (context, error, stackTrace) {
+                                        return const CircleAvatar(
+                                          radius: 28,
+                                          child: Icon(Icons.error),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          name,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Cases: $cases',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Icon(Icons.arrow_forward),
+                                ],
                               ),
                             ),
-                            title: Text(
-                              name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            subtitle: Text(
-                              'Cases: $cases',
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                            trailing: const Icon(Icons.arrow_forward),
                           ),
                         );
                       } else {

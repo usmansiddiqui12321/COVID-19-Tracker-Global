@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
