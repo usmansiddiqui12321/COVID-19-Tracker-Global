@@ -91,57 +91,70 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                       final flagUrl =
                           data[index]['countryInfo']['flag'].toString();
                       final cases = data[index]['cases'].toString();
-                      return name
-                              .toLowerCase()
-                              .contains(searchController.text.toLowerCase())
-                          ? InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => detailedScreen(
-                                      image: flagUrl,
-                                      name: name,
-                                      totalCases: cases,
-                                      totalDeaths:
-                                          data[index]['death'].toString(),
-                                      active: data[index]['active'].toString(),
-                                      test: data[index]['tests'].toString(),
-                                      todayRecovered: data[index]
-                                              ['todayRecovered']
-                                          .toString(),
-                                      totalRecovered:
-                                          data[index]['recovered'].toString(),
-                                      critical:
-                                          data[index]['critical'].toString(),
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 16),
-                                leading: CircleAvatar(
-                                  radius: 28,
-                                  backgroundImage: NetworkImage(flagUrl),
+                      if (name
+                          .toLowerCase()
+                          .contains(searchController.text.toLowerCase())) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => detailedScreen(
+                                  image: flagUrl,
+                                  name: name,
+                                  totalCases: cases,
+                                  totalDeaths: data[index]['death'].toString(),
+                                  active: data[index]['active'].toString(),
+                                  test: data[index]['tests'].toString(),
+                                  todayRecovered:
+                                      data[index]['todayRecovered'].toString(),
+                                  totalRecovered:
+                                      data[index]['recovered'].toString(),
+                                  critical: data[index]['critical'].toString(),
                                 ),
-                                title: Text(
-                                  name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  'Cases: $cases',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                trailing: const Icon(Icons.arrow_forward),
                               ),
-                            )
-                          : Container();
+                            );
+                          },
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 16),
+                            leading: ClipOval(
+                              child: FadeInImage(
+                                fadeInDuration: const Duration(milliseconds: 250),
+                                placeholder:
+                                    const AssetImage('images/placeholder.jpg'),
+                                image: NetworkImage(flagUrl),
+                                fit: BoxFit.cover,
+                                width: 56.0,
+                                height: 56.0,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return const CircleAvatar(
+                                    radius: 28,
+                                    child: Icon(Icons.error),
+                                  );
+                                },
+                              ),
+                            ),
+                            title: Text(
+                              name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Cases: $cases',
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                            trailing: const Icon(Icons.arrow_forward),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
                   );
                 },
@@ -153,26 +166,3 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
     );
   }
 }
-
-// class ListContainer extends StatelessWidget {
-//   ListContainer({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-
-//     return Container(
-//       height: size.height * .3,
-//       width: size.width * .8,
-//       child: Row(
-//         children: [
-//           Image(
-//               image:
-//                   NetworkImage(snapshot.data![index]['countryInfo']['flag'])),
-//           Column(
-//             children: [],
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }

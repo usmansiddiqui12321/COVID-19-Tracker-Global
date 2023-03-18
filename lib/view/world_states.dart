@@ -1,4 +1,3 @@
-
 import 'package:covid_with_api/Model/WorldStatesModel.dart';
 import 'package:covid_with_api/Services/StatesServices.dart';
 import 'package:covid_with_api/view/Countries_List.dart';
@@ -29,6 +28,11 @@ class _worldStatesScreenState extends State<worldStatesScreen>
     _controller.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final colorList = <Color>[
     const Color(0xff4285F4),
     const Color(0xff1AA260),
@@ -36,116 +40,121 @@ class _worldStatesScreenState extends State<worldStatesScreen>
   ];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     StatesServices statesServices = StatesServices();
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              SizedBox(height: size.height * 0.01),
-              // ignore: prefer_const_constructors
-              FutureBuilder(
-                  future: statesServices.fetchworldStateRecords(),
-                  builder: (context, AsyncSnapshot<WorldStatesModel> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Expanded(
-                        flex: 1,
-                        child: SpinKitFadingCircle(
-                          color: Colors.white,
-                          size: 50,
-                          controller: _controller,
-                        ),
-                      );
-                    } else {
-                      return Column(
-                        children: [
-                          PieChart(
-                            // ignore: prefer_const_literals_to_create_immutables
-                            dataMap: {
-                              "Total":
-                                  double.parse(snapshot.data!.cases.toString()),
-                              "Recovered": double.parse(
-                                  snapshot.data!.recovered.toString()),
-                              "Deaths": double.parse(
-                                  snapshot.data!.deaths.toString()),
-                            },
-                            chartValuesOptions: const ChartValuesOptions(
-                                showChartValuesInPercentage: true),
-                            chartRadius: size.width / 2.5,
-                            legendOptions: const LegendOptions(
-                                legendPosition: LegendPosition.left),
-                            animationDuration:
-                                const Duration(milliseconds: 1200),
-                            chartType: ChartType.ring,
-                            colorList: colorList,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              children: [
+                SizedBox(height: size.height * 0.01),
+                FutureBuilder(
+                    future: statesServices.fetchworldStateRecords(),
+                    builder:
+                        (context, AsyncSnapshot<WorldStatesModel> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Expanded(
+                          flex: 1,
+                          child: SpinKitFadingCircle(
+                            color: Colors.white,
+                            size: 50,
+                            controller: _controller,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: size.height * 0.06, bottom: 10),
-                            child: Card(
-                              child: Column(
-                                // ignore: prefer_const_literals_to_create_immutables
-                                children: [
-                                  ReusealeRow(
-                                      title: "total",
-                                      value: snapshot.data!.cases.toString()),
-                                  ReusealeRow(
-                                      title: "Deaths",
-                                      value: snapshot.data!.deaths.toString()),
-                                  ReusealeRow(
-                                      title: "Recovered",
-                                      value:
-                                          snapshot.data!.recovered.toString()),
-                                  ReusealeRow(
-                                      title: "Active",
-                                      value: snapshot.data!.active.toString()),
-                                  ReusealeRow(
-                                      title: "Critical",
-                                      value:
-                                          snapshot.data!.critical.toString()),
-                                  ReusealeRow(
-                                      title: "Today Deaths",
-                                      value: snapshot.data!.todayDeaths
-                                          .toString()),
-                                  ReusealeRow(
-                                      title: "Today Recoverd",
-                                      value: snapshot.data!.todayRecovered
-                                          .toString()),
-                                ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            PieChart(
+                              dataMap: {
+                                "Total": double.parse(
+                                    snapshot.data!.cases.toString()),
+                                "Recovered": double.parse(
+                                    snapshot.data!.recovered.toString()),
+                                "Deaths": double.parse(
+                                    snapshot.data!.deaths.toString()),
+                              },
+                              chartValuesOptions: const ChartValuesOptions(
+                                  showChartValuesInPercentage: true),
+                              chartRadius: size.width / 2.5,
+                              legendOptions: const LegendOptions(
+                                  legendPosition: LegendPosition.left),
+                              animationDuration:
+                                  const Duration(milliseconds: 1200),
+                              chartType: ChartType.ring,
+                              colorList: colorList,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: size.height * 0.06, bottom: 10),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Column(
+                                  children: [
+                                    ReusealeRow(
+                                        title: "total",
+                                        value: snapshot.data!.cases.toString()),
+                                    ReusealeRow(
+                                        title: "Deaths",
+                                        value:
+                                            snapshot.data!.deaths.toString()),
+                                    ReusealeRow(
+                                        title: "Recovered",
+                                        value: snapshot.data!.recovered
+                                            .toString()),
+                                    ReusealeRow(
+                                        title: "Active",
+                                        value:
+                                            snapshot.data!.active.toString()),
+                                    ReusealeRow(
+                                        title: "Critical",
+                                        value:
+                                            snapshot.data!.critical.toString()),
+                                    ReusealeRow(
+                                        title: "Today Deaths",
+                                        value: snapshot.data!.todayDeaths
+                                            .toString()),
+                                    ReusealeRow(
+                                        title: "Today Recoverd",
+                                        value: snapshot.data!.todayRecovered
+                                            .toString()),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const CountriesListScreen()));
-                            },
-                            child: Container(
-                              height: 50,
-                              // width: ,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color(0xff1aa260)),
-                              child:
-                                  const Center(child: Text("Country Tracker")),
+                                          const CountriesListScreen()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xff1aa260),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(17),
+                                ),
+                                minimumSize: const Size(30, 50),
+                              ),
+                              child: const Text(
+                                "Country Tracker",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
-                          )
-                        ],
-                      );
-                    }
-                  }),
-            ],
+                          ],
+                        );
+                      }
+                    }),
+              ],
+            ),
           ),
         ),
       ),
