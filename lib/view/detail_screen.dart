@@ -1,6 +1,4 @@
-// ignore_for_file: camel_case_types, must_be_immutable
 
-import 'package:covid_with_api/view/Countries_List.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
