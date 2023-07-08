@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
+import 'package:covid_with_api/view/Countries_List.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,49 +36,60 @@ class _detailedScreenState extends State<detailedScreen> {
     String dateStr = "${today.day}-${today.month}-${today.year}";
 
     return Scaffold(
-      appBar: AppBar(
-        key: const Key('myAppBar'),
-
-        automaticallyImplyLeading: true,
-        title: Text(widget.name.toString()),
-
-        elevation: 4,
-        scrolledUnderElevation: 2,
-        notificationPredicate: (notification) => true,
-        shadowColor: Colors.black,
-        surfaceTintColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
-        ),
-        backgroundColor: Colors.grey[800],
-        foregroundColor: Colors.white,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-          size: 24,
-        ),
-        actionsIconTheme: const IconThemeData(
-          color: Colors.white,
-          size: 24,
-        ),
-        primary: true,
-        centerTitle: true,
-        // ignore: prefer_const_constructors
-        excludeHeaderSemantics: false,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        toolbarTextStyle: const TextTheme(
-          titleLarge: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          key: const Key('myAppBar'),
+          automaticallyImplyLeading: false,
+          title: Text(widget.name.toString()),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              // Handle the back button press
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CountriesListScreen()));
+            },
           ),
-        ).bodyMedium,
-        titleTextStyle: const TextTheme(
-          titleLarge: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+          elevation: 4,
+          scrolledUnderElevation: 2,
+          notificationPredicate: (notification) => true,
+          shadowColor: Colors.black,
+          surfaceTintColor: Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
           ),
-        ).titleLarge,
+          backgroundColor: Colors.grey[800],
+          foregroundColor: Colors.white,
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+            size: 24,
+          ),
+          actionsIconTheme: const IconThemeData(
+            color: Colors.white,
+            size: 24,
+          ),
+          primary: true,
+          centerTitle: true,
+          // ignore: prefer_const_constructors
+          excludeHeaderSemantics: false,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+          toolbarTextStyle: const TextTheme(
+            titleLarge: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ).bodyMedium,
+          titleTextStyle: const TextTheme(
+            titleLarge: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ).titleLarge,
+        ),
       )
 
       //widget.name.toString()
