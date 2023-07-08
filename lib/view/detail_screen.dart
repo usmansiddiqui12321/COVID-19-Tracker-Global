@@ -40,18 +40,8 @@ class _detailedScreenState extends State<detailedScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBar(
           key: const Key('myAppBar'),
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: Text(widget.name.toString()),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              // Handle the back button press
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CountriesListScreen()));
-            },
-          ),
           elevation: 4,
           scrolledUnderElevation: 2,
           notificationPredicate: (notification) => true,

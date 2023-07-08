@@ -96,6 +96,7 @@ class _CountriesListScreenState extends State<CountriesListScreen> {
                           .contains(searchController.text.toLowerCase())) {
                         return InkWell(
                           onTap: () {
+                            searchController.text = "";
                             Navigator.push(
                               context,
                               MaterialPageRoute(
