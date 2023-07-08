@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.covid_with_api">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
         android:label="covid_with_api"
         android:name="${applicationName}"
